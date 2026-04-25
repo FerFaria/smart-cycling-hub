@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maintenance Guide — Smart Cycling Hub</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Antonio:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css?v=9" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Header -->
+    <header>
+      <div class="header-inner">
+        <a href="index.html" class="logo"
+          ><img src="logo.svg" alt="SCH" /><span>Smart Cycling Hub</span></a
+        >
+        <nav class="desktop-nav">
+          <a href="index.html">Home</a>
+          <a href="cycling-tips.html">Tips</a>
+          <a href="bike-size-guide.html">Size Guide</a>
+          <a href="maintenance.html" class="active">Maintenance</a>
+          <a href="route-insight.html">Routes</a>
+          <a href="bike-finder.html">Bike Finder</a>
+                    <a
+            href="chain-reaction.html"
+            onclick="return requirePaid('chain-reaction.html');"
+            ><img src="LogoCR.svg" alt="Chain Reaction" style="height: 22px; vertical-align: middle;"
+          /></a>
+          <a href="about.html">About</a>
+          <a
+            href="profile.html"
+            class="auth-link show-signed-in" aria-label="Profile" title="Profile"
+            ><i class="bi bi-person-circle" aria-hidden="true"></i
+          ></a>
+          <a href="signin.html" class="auth-link show-signed-out nav-signin"
+            >Sign In</a
+          >
+          <button
+            onclick="handleSignOut()"
+            class="auth-link show-signed-in nav-signout"
+          >
+            Sign Out
+          </button>
+        </nav>
+        <button class="mobile-toggle" onclick="toggleMobile()" aria-label="Open navigation menu" aria-expanded="false">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="cycling-tips.html">Cycling Tips</a
+        ><a href="bike-size-guide.html">Bike Size Guide</a>
+        <a href="maintenance.html">Maintenance</a
+        ><a href="route-insight.html">Route Insight</a
+        ><a href="bike-finder.html">Bike Finder</a>
+                <a
+          href="chain-reaction.html"
+          onclick="return requirePaid('chain-reaction.html');"
+          >Chain Reaction</a
+        >
+        <a href="about.html">About</a><a href="policy.html">User Policy</a>
+        <a href="profile.html" class="auth-link show-signed-in">Profile</a>
+        <a href="signin.html" class="auth-link show-signed-out">Sign In</a>
+        <button onclick="handleSignOut()" class="auth-link show-signed-in">
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content">
+
+    <section
+      class="page-hero"
+      style="
+        background-image: url(&quot;https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=1400&q=80&quot;);
+      "
+    >
+      <div class="container">
+        <p class="section-label">Keep Rolling</p>
+        <h1>Maintenance Guide</h1>
+        <p>
+          10 essential maintenance tips for each bike type. City/Commuter is
+          free; other types require a premium subscription.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="maint-tabs" id="maintTabs" role="tablist" aria-label="Bike type maintenance guides">
+          <button class="maint-tab active" onclick="switchTab('city')" role="tab" id="tab-city" aria-selected="true" aria-controls="panel-city">
+            City / Commuter
+          </button>
+          <button class="maint-tab" onclick="switchTab('electric')" role="tab" id="tab-electric" aria-selected="false" aria-controls="panel-electric">
+            Electric <span style="font-size: 0.65rem; color: #fafa05" aria-hidden="true">★</span> <span class="visually-hidden">(Premium)</span>
+          </button>
+          <button class="maint-tab" onclick="switchTab('mountain')" role="tab" id="tab-mountain" aria-selected="false" aria-controls="panel-mountain">
+            Mountain <span style="font-size: 0.65rem; color: #fafa05" aria-hidden="true">★</span> <span class="visually-hidden">(Premium)</span>
+          </button>
+          <button class="maint-tab" onclick="switchTab('road')" role="tab" id="tab-road" aria-selected="false" aria-controls="panel-road">
+            Road <span style="font-size: 0.65rem; color: #fafa05" aria-hidden="true">★</span> <span class="visually-hidden">(Premium)</span>
+          </button>
+          <button class="maint-tab" onclick="switchTab('gravel')" role="tab" id="tab-gravel" aria-selected="false" aria-controls="panel-gravel">
+            Gravel <span style="font-size: 0.65rem; color: #fafa05" aria-hidden="true">★</span> <span class="visually-hidden">(Premium)</span>
+          </button>
+        </div>
+
+        <!-- City/Commuter (FREE) -->
+        <div class="maint-panel active" id="panel-city" role="tabpanel" aria-labelledby="tab-city">
+          <ol class="maint-list">
+            <li>
+              <div>
+                <strong>Check Tyre Pressure Weekly</strong
+                ><span
+                  >City tyres should be inflated to 60–80 PSI. Under-inflated
+                  tyres increase rolling resistance and puncture risk.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Lubricate the Chain Monthly</strong
+                ><span
+                  >Apply wet or dry lube depending on weather. Wipe excess with
+                  a clean rag to prevent grime buildup.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Brake Pads</strong
+                ><span
+                  >Check brake pad wear indicators. Replace when the grooves are
+                  no longer visible. Test stopping power regularly.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Keep the Drivetrain Clean</strong
+                ><span
+                  >Degrease and clean the chain, cassette, and chainring every
+                  2–4 weeks depending on usage.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Tighten Bolts and Fasteners</strong
+                ><span
+                  >Check handlebar, stem, seat post, and wheel axle bolts
+                  monthly. Use a torque wrench for carbon components.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Lights and Reflectors</strong
+                ><span
+                  >Ensure front and rear lights work. Replace batteries or
+                  charge regularly. Clean reflectors for visibility.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Tyres for Wear</strong
+                ><span
+                  >Look for cuts, embedded glass, or worn tread. Replace tyres
+                  when the tread is smooth or sidewalls show damage.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Adjust Saddle and Handlebars</strong
+                ><span
+                  >Ensure proper riding position. Saddle height should allow a
+                  slight bend in the knee at the bottom of the pedal
+                  stroke.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Clean the Bike Regularly</strong
+                ><span
+                  >Wash with mild soap and water. Avoid high-pressure washers
+                  which can force water into bearings.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Annual Professional Service</strong
+                ><span
+                  >Take your bike for a full service annually. A mechanic can
+                  spot issues you might miss and ensure everything is properly
+                  adjusted.</span
+                >
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Electric (PAID) -->
+        <div class="maint-panel" id="panel-electric" role="tabpanel" aria-labelledby="tab-electric">
+          <div
+            class="maint-lock-overlay"
+            id="lock-electric"
+            style="display: none"
+          >
+            <i class="bi bi-lock" style="font-size: 2.5rem; color: #17c9e8"></i>
+            <p>
+              Electric Bike maintenance tips require a premium subscription.
+            </p>
+            <button class="btn btn-gradient btn-sm" onclick="openModal()">
+              Unlock Premium
+            </button>
+          </div>
+          <ol class="maint-list" id="content-electric">
+            <li>
+              <div>
+                <strong>Monitor Battery Health</strong
+                ><span
+                  >Charge between 20–80% for optimal battery longevity. Avoid
+                  storing fully depleted or fully charged.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Keep Electrical Contacts Clean</strong
+                ><span
+                  >Clean battery and motor connectors with a dry cloth. Prevent
+                  corrosion with dielectric grease.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Update Firmware Regularly</strong
+                ><span
+                  >Check the manufacturer's app for motor firmware updates that
+                  improve performance and efficiency.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Motor Mounting Bolts</strong
+                ><span
+                  >Vibration can loosen motor bolts. Check torque specs monthly,
+                  especially for mid-drive motors.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Sensor Alignment</strong
+                ><span
+                  >Speed and cadence sensors must be properly aligned.
+                  Misalignment causes erratic pedal assist behaviour.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Protect from Water</strong
+                ><span
+                  >While most e-bikes are water-resistant, avoid submerging the
+                  motor or battery. Dry after wet rides.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Wiring Harness</strong
+                ><span
+                  >Check cables for chafing, loose connections, or damage.
+                  Secure loose wires away from moving parts.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Brake Pads Wear Faster</strong
+                ><span
+                  >E-bikes are heavier and faster. Check brake pads more
+                  frequently than on regular bikes.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Tyre Pressure for E-Bikes</strong
+                ><span
+                  >E-bike tyres need slightly higher pressure (70–90 PSI) due to
+                  the extra weight of the motor and battery.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Store Battery Properly</strong
+                ><span
+                  >In winter, remove the battery and store at room temperature.
+                  Keep charge level around 50% during long storage.</span
+                >
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Mountain (PAID) -->
+        <div class="maint-panel" id="panel-mountain" role="tabpanel" aria-labelledby="tab-mountain">
+          <div
+            class="maint-lock-overlay"
+            id="lock-mountain"
+            style="display: none"
+          >
+            <i class="bi bi-lock" style="font-size: 2.5rem; color: #17c9e8"></i>
+            <p>
+              Mountain Bike maintenance tips require a premium subscription.
+            </p>
+            <button class="btn btn-gradient btn-sm" onclick="openModal()">
+              Unlock Premium
+            </button>
+          </div>
+          <ol class="maint-list" id="content-mountain">
+            <li>
+              <div>
+                <strong>Service Suspension Regularly</strong
+                ><span
+                  >Clean stanchions after every ride. Full suspension service
+                  every 50–100 hours of riding.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Tubeless Sealant</strong
+                ><span
+                  >Top up sealant every 2–3 months. Shake wheels to check if
+                  sealant is still liquid inside.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Dropper Post</strong
+                ><span
+                  >Keep the dropper post clean and lubricated. Service the
+                  cartridge annually or when action becomes sluggish.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Clean After Every Muddy Ride</strong
+                ><span
+                  >Mud accelerates wear on all components. Rinse the bike gently
+                  and dry the chain after muddy trails.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Disc Brake Rotors</strong
+                ><span
+                  >Inspect for warping and contamination. Minimum rotor
+                  thickness is usually 1.5mm — replace when worn.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Tighten Through-Axles</strong
+                ><span
+                  >Check front and rear through-axle tightness before every
+                  ride. Loose axles affect handling and safety.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Frame for Cracks</strong
+                ><span
+                  >After hard impacts, check the frame around welds and pivot
+                  points for hairline cracks.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Replace Chain Regularly</strong
+                ><span
+                  >Mountain bike chains stretch faster due to mud and grit.
+                  Replace every 1,500–2,000 km to protect the cassette.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Spoke Tension</strong
+                ><span
+                  >Trail riding loosens spokes. Squeeze pairs of spokes to check
+                  tension and true wheels as needed.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Adjust Suspension Settings</strong
+                ><span
+                  >Set sag, rebound, and compression for your weight and riding
+                  style. Re-check after significant weight changes.</span
+                >
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Road (PAID) -->
+        <div class="maint-panel" id="panel-road" role="tabpanel" aria-labelledby="tab-road">
+          <div class="maint-lock-overlay" id="lock-road" style="display: none">
+            <i class="bi bi-lock" style="font-size: 2.5rem; color: #17c9e8"></i>
+            <p>Road Bike maintenance tips require a premium subscription.</p>
+            <button class="btn btn-gradient btn-sm" onclick="openModal()">
+              Unlock Premium
+            </button>
+          </div>
+          <ol class="maint-list" id="content-road">
+            <li>
+              <div>
+                <strong>Maintain High Tyre Pressure</strong
+                ><span
+                  >Road tyres need 80–130 PSI. Check before every ride as
+                  pressure drops faster in thin tyres.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Wax Your Chain</strong
+                ><span
+                  >Waxed chains run cleaner and last longer than lubed chains.
+                  Re-wax every 300–500 km.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Bar Tape Condition</strong
+                ><span
+                  >Replace worn or torn bar tape for comfort and grip. Clean
+                  regularly to prevent slipping.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Carbon Components</strong
+                ><span
+                  >Check carbon handlebars, seatpost, and frame for impact
+                  damage. Use a torque wrench — never over-tighten.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Align Derailleurs Precisely</strong
+                ><span
+                  >Road shifting must be crisp. Adjust cable tension and limit
+                  screws for perfect gear changes.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Replace Brake Cables Annually</strong
+                ><span
+                  >Cables stretch and fray over time. Fresh cables improve
+                  braking response significantly.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Clean Rim Brake Tracks</strong
+                ><span
+                  >If using rim brakes, clean the braking surface with alcohol
+                  to remove rubber deposits and improve stopping.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Wheel Trueness</strong
+                ><span
+                  >Spin each wheel and check for wobble. True wheels reduce drag
+                  and improve handling at speed.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Service Bottom Bracket</strong
+                ><span
+                  >Listen for creaking or grinding. Service or replace the
+                  bottom bracket every 5,000–10,000 km.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Cleats and Pedals</strong
+                ><span
+                  >Check cleat wear and float adjustment. Worn cleats can cause
+                  knee pain and unclipping issues.</span
+                >
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Gravel (PAID) -->
+        <div class="maint-panel" id="panel-gravel" role="tabpanel" aria-labelledby="tab-gravel">
+          <div
+            class="maint-lock-overlay"
+            id="lock-gravel"
+            style="display: none"
+          >
+            <i class="bi bi-lock" style="font-size: 2.5rem; color: #17c9e8"></i>
+            <p>Gravel Bike maintenance tips require a premium subscription.</p>
+            <button class="btn btn-gradient btn-sm" onclick="openModal()">
+              Unlock Premium
+            </button>
+          </div>
+          <ol class="maint-list" id="content-gravel">
+            <li>
+              <div>
+                <strong>Maintain Tubeless Setup</strong
+                ><span
+                  >Check sealant levels monthly. Inspect tyre beads for proper
+                  seating. Carry a plug kit for trail-side repairs.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Lower Tyre Pressure for Grip</strong
+                ><span
+                  >Run 30–45 PSI for gravel. Lower pressure improves traction on
+                  loose surfaces but increases pinch flat risk.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Clean After Gravel Rides</strong
+                ><span
+                  >Dust and fine grit penetrate everywhere. Rinse the bike and
+                  re-lube the chain after every gravel ride.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Frame Mounts</strong
+                ><span
+                  >Gravel bikes have many bottle cage and rack mounts. Check
+                  bolt tightness as vibration loosens them.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Inspect Disc Brakes Frequently</strong
+                ><span
+                  >Gravel riding wears brake pads faster than road. Check pad
+                  thickness and rotor condition regularly.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Service Headset Bearings</strong
+                ><span
+                  >Rough terrain stresses headset bearings. Check for play and
+                  re-grease every 3–6 months.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Protect the Chainstay</strong
+                ><span
+                  >Install a chainstay protector to prevent chain slap damage on
+                  rough terrain.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Check Wheel Bearings</strong
+                ><span
+                  >Spin wheels and feel for roughness. Gravel riding accelerates
+                  bearing wear — service annually.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Carry Spare Parts</strong
+                ><span
+                  >Pack a spare tube, tyre boot, multi-tool, and chain links for
+                  remote gravel adventures.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Adjust Fit for Long Rides</strong
+                ><span
+                  >Gravel rides are often longer. Fine-tune saddle position and
+                  handlebar reach for all-day comfort.</span
+                >
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscription Modal -->
+    <div class="modal-overlay" id="subModal">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">&times;</button>
+        <h2>Unlock Premium</h2>
+        <div class="stripe-bar" style="margin: 0.5rem auto 1rem"></div>
+        <p style="text-align: center; color: #666">
+          Access all Maintenance Guides for every bike type.
+        </p>
+        <div class="plan-cards">
+          <div class="plan-card">
+            <h3>Monthly Plan</h3>
+            <div class="price">&euro;10<span>/month</span></div>
+            <p>Full access. Cancel anytime.</p>
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="handleSubscribe()"
+              style="width: 100%"
+            >
+              Subscribe Now
+            </button>
+          </div>
+          <div class="plan-card">
+            <h3>Free Trial</h3>
+            <div class="price">7<span> days</span></div>
+            <p>Try free for 7 days.</p>
+            <button
+              class="btn btn-gradient btn-sm"
+              id="trialBtn"
+              onclick="handleStartTrial()"
+              style="width: 100%"
+            >
+              Start Free Trial
+            </button>
+          </div>
+        </div>
+        <p class="modal-note">
+          Cancel anytime &middot; One trial per email address
+        </p>
+      </div>
+    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="logo.svg" alt="SCH" style="height: 28px" /><a href="index.html" style="text-decoration: none;"><span
+              style="
+                font-family: &quot;Antonio&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                letter-spacing: 0.1em;
+                color: #fff;
+              "
+              >SMART CYCLING HUB</span
+            ></a>
+            <p>Your ultimate cycling companion.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Features</h4>
+            <a href="cycling-tips.html">Cycling Tips</a
+            ><a href="maintenance.html">Maintenance</a
+            ><a href="route-insight.html">Route Insight</a
+            ><a href="bike-finder.html">Bike Finder</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About</a><a href="policy.html">User Policy</a>
+          </div>
+          <div class="footer-col">
+            <h4>Account</h4>
+            <a href="signin.html">Sign In</a><a href="profile.html">Profile</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2026 Smart Cycling Hub. All rights reserved. Academic project.
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js?v=9"></script>
+    <script>
+      var paidTabs = ["electric", "mountain", "road", "gravel"];
+
+      function switchTab(tabName) {
+        // Check auth and paid access for non-city tabs
+        if (paidTabs.indexOf(tabName) !== -1 && (!auth.isAuthenticated || !hasPaidAccess())) {
+          if (!auth.isAuthenticated) {
+            showSubscriptionPopup();
+            return;
+          }
+          var lock = document.getElementById("lock-" + tabName);
+          var content = document.getElementById("content-" + tabName);
+          if (lock) lock.style.display = "";
+          if (content) content.style.display = "none";
+        } else {
+          var lock = document.getElementById("lock-" + tabName);
+          var content = document.getElementById("content-" + tabName);
+          if (lock) lock.style.display = "none";
+          if (content) content.style.display = "";
+        }
+        // Switch active tab button
+        var tabs = document.querySelectorAll(".maint-tab");
+        var tabNames = ["city", "electric", "mountain", "road", "gravel"];
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].classList.remove("active");
+          tabs[i].setAttribute("aria-selected", "false");
+          if (tabNames[i] === tabName) {
+            tabs[i].classList.add("active");
+            tabs[i].setAttribute("aria-selected", "true");
+          }
+        }
+        // Switch active panel
+        var panels = document.querySelectorAll(".maint-panel");
+        for (var i = 0; i < panels.length; i++)
+          panels[i].classList.remove("active");
+        document.getElementById("panel-" + tabName).classList.add("active");
+      }
+
+      function pageInit() {
+        // Check URL params for direct tab access
+        var params = new URLSearchParams(window.location.search);
+        var tab = params.get("tab");
+        if (tab && document.getElementById("panel-" + tab)) {
+          // Simulate tab click
+          var tabs = document.querySelectorAll(".maint-tab");
+          for (var i = 0; i < tabs.length; i++)
+            tabs[i].classList.remove("active");
+          var panels = document.querySelectorAll(".maint-panel");
+          for (var i = 0; i < panels.length; i++)
+            panels[i].classList.remove("active");
+          document.getElementById("panel-" + tab).classList.add("active");
+          // Find and activate the right tab button
+          for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i].textContent.toLowerCase().indexOf(tab) !== -1) {
+              tabs[i].classList.add("active");
+              break;
+            }
+          }
+          // Check auth and paid access
+          if (paidTabs.indexOf(tab) !== -1 && (!auth.isAuthenticated || !hasPaidAccess())) {
+            if (!auth.isAuthenticated) {
+              showSubscriptionPopup();
+              return;
+            }
+            var lock = document.getElementById("lock-" + tab);
+            var content = document.getElementById("content-" + tab);
+            if (lock) lock.style.display = "";
+            if (content) content.style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

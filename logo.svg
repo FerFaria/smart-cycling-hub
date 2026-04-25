@@ -1,0 +1,33 @@
+<svg width="100" height="110" viewBox="-5 0 105 110" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradD" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#17C9E8"/>
+      <stop offset="100%" stop-color="#FAFA05"/>
+    </linearGradient>
+
+    <filter id="shadowD" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Icon -->
+  <g transform="translate(20,15) scale(0.85)" filter="url(#shadowD)">
+    <path d="M40 0 
+             C65 0 85 20 85 45 
+             C85 75 40 110 40 110 
+             C40 110 -5 75 -5 45 
+             C-5 20 15 0 40 0 Z"
+          fill="url(#gradD)"/>
+
+    <circle cx="40" cy="45" r="16" fill="none" stroke="#111" stroke-width="3"/>
+
+    <path d="M28 50 Q40 30 52 38"
+          stroke="#111"
+          stroke-width="2.5"
+          fill="none"
+          stroke-linecap="round"/>
+
+    <circle cx="28" cy="50" r="3.5" fill="#111"/>
+    <circle cx="52" cy="38" r="3.5" fill="#17C9E8"/>
+  </g>
+</svg>

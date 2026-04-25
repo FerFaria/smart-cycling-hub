@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Profile — Smart Cycling Hub</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Antonio:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css?v=9" />
+    <style>
+      /* ---- Profile Avatar Upload ---- */
+      .avatar-upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .avatar-upload-area {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        background: #222;
+        border: 3px solid rgba(255,255,255,0.2);
+        transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .avatar-upload-area:hover,
+      .avatar-upload-area:focus-visible {
+        border-color: #17C9E8;
+        box-shadow: 0 0 0 3px rgba(23,201,232,0.3);
+        transform: scale(1.04);
+      }
+      .avatar-upload-area:active {
+        transform: scale(0.97);
+      }
+      .avatar-upload-area img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-upload-area img.visible {
+        display: block;
+      }
+      .avatar-default-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-family: 'Antonio', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, #17C9E8, #0fa0b8);
+        user-select: none;
+      }
+      .avatar-default-icon.has-image {
+        display: none;
+      }
+      .avatar-upload-area .avatar-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s;
+        pointer-events: none;
+      }
+      .avatar-upload-area:hover .avatar-overlay,
+      .avatar-upload-area:focus-visible .avatar-overlay {
+        opacity: 1;
+      }
+      .avatar-overlay i {
+        font-size: 1.6rem;
+        color: #fff;
+      }
+      .avatar-upload-label {
+        margin-top: 0.6rem;
+        font-family: 'Antonio', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .avatar-upload-label:hover {
+        color: #17C9E8;
+      }
+      #cpAvatarInput {
+        display: none;
+      }
+
+      /* ---- Button Focus & Accessibility ---- */
+      .btn:focus-visible {
+        outline: 3px solid #17C9E8;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(23,201,232,0.25);
+      }
+      .btn:active {
+        transform: translateY(0px) scale(0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      }
+      .btn-gradient:hover {
+        background: linear-gradient(135deg, #14b8d4, #e8e804);
+      }
+      .btn-gradient:active {
+        background: linear-gradient(135deg, #10a0b8, #d4d404);
+      }
+      .btn-cancel-profile:focus-visible {
+        outline: 3px solid rgba(255,255,255,0.5);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(255,255,255,0.1);
+      }
+      .btn-cancel-profile:active {
+        transform: scale(0.97);
+        background: rgba(255,255,255,0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main-content">
+    <h1 class="visually-hidden">Create Profile — Smart Cycling Hub</h1>
+    <div class="create-profile-page">
+      <div class="create-profile-box">
+        <p class="section-label" style="color: #17c9e8">Almost There</p>
+        <h2>Complete Your Profile</h2>
+        <div class="stripe-bar"></div>
+        <p class="subtitle">
+          Tell us about yourself to personalise your experience.
+        </p>
+        <form onsubmit="handleCreateProfile(event)">
+          <!-- Profile Picture Upload -->
+          <div class="avatar-upload-wrapper">
+            <div
+              class="avatar-upload-area"
+              id="avatarUploadArea"
+              tabindex="0"
+              role="button"
+              aria-label="Upload profile picture"
+              onclick="document.getElementById('cpAvatarInput').click()"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('cpAvatarInput').click();}"
+            >
+              <div class="avatar-default-icon" id="avatarDefaultIcon">
+                <i class="bi bi-person"></i>
+              </div>
+              <img id="avatarPreview" alt="Profile picture preview" />
+              <div class="avatar-overlay">
+                <i class="bi bi-camera"></i>
+              </div>
+            </div>
+            <label class="avatar-upload-label" for="cpAvatarInput">Add Photo</label>
+            <input
+              type="file"
+              id="cpAvatarInput"
+              accept="image/jpeg,image/png"
+              onchange="handleAvatarUpload(this)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cpFullName">Full Name</label>
+            <input
+              type="text"
+              id="cpFullName"
+              placeholder="John Doe"
+              required
+              oninput="updateAvatarInitial()"
+            />
+          </div>
+          <div class="form-group">
+            <label for="cpPhone">Cell Phone Number</label>
+            <input
+              type="tel"
+              id="cpPhone"
+              placeholder="+353 1234567"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="cpCountry">Country</label>
+            <select id="cpCountry" required></select>
+          </div>
+          <div class="form-group">
+            <label for="cpCard">Credit Card Number</label>
+            <input
+              type="text"
+              id="cpCard"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+            />
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+            <div class="form-group">
+              <label for="cpExpiry">Expiry</label>
+              <input
+                type="text"
+                id="cpExpiry"
+                placeholder="MM/YY"
+                maxlength="5"
+                inputmode="numeric"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cpCvc">CVC</label>
+              <input type="text" id="cpCvc" placeholder="123" maxlength="4" />
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-gradient"
+            style="width: 100%; margin-top: 0.5rem"
+          >
+            Save &amp; Continue
+          </button>
+        </form>
+        <button
+          type="button"
+          class="btn btn-cancel-profile"
+          onclick="handleCancelProfile()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    </main>
+
+    <script src="script.js?v=9"></script>
+    <script>
+      /* ---- Avatar Upload Handler ---- */
+      function handleAvatarUpload(input) {
+        if (!input.files || !input.files[0]) return;
+        var file = input.files[0];
+        // Validate file type
+        if (!file.type.match(/^image\/(jpeg|png)$/)) {
+          alert('Please upload a JPG or PNG image.');
+          input.value = '';
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var preview = document.getElementById('avatarPreview');
+          var defaultIcon = document.getElementById('avatarDefaultIcon');
+          preview.src = e.target.result;
+          preview.classList.add('visible');
+          defaultIcon.classList.add('has-image');
+          // Store in auth for persistence
+          auth.profilePicture = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      /* ---- Update Avatar Initial from Name ---- */
+      function updateAvatarInitial() {
+        var preview = document.getElementById('avatarPreview');
+        // Only show initial if no image uploaded
+        if (preview.classList.contains('visible')) return;
+        var nameInput = document.getElementById('cpFullName');
+        var defaultIcon = document.getElementById('avatarDefaultIcon');
+        var name = nameInput.value.trim();
+        if (name.length > 0) {
+          defaultIcon.textContent = name.charAt(0).toUpperCase();
+          defaultIcon.style.fontSize = '3rem';
+        } else {
+          defaultIcon.innerHTML = '<i class="bi bi-person"></i>';
+          defaultIcon.style.fontSize = '';
+        }
+      }
+
+      function pageInit() {
+        populateCountrySelect("cpCountry");
+        // Restore avatar if already set
+        if (auth.profilePicture) {
+          var preview = document.getElementById('avatarPreview');
+          var defaultIcon = document.getElementById('avatarDefaultIcon');
+          preview.src = auth.profilePicture;
+          preview.classList.add('visible');
+          defaultIcon.classList.add('has-image');
+        }
+        // Apply expiry date formatting
+        var cpExpiry = document.getElementById('cpExpiry');
+        if (cpExpiry) {
+          cpExpiry.setAttribute('inputmode', 'numeric');
+          cpExpiry.addEventListener('input', function() { formatExpiryInput(this); });
+          cpExpiry.addEventListener('keydown', function(e) { handleExpiryKeydown(e); });
+        }
+      }
+
+      /* ---- Expiry Date Input Formatting ---- */
+      function formatExpiryInput(input) {
+        var digits = input.value.replace(/\D/g, '');
+        if (digits.length > 4) digits = digits.substring(0, 4);
+        if (digits.length >= 2) {
+          input.value = digits.substring(0, 2) + '/' + digits.substring(2);
+        } else {
+          input.value = digits;
+        }
+      }
+
+      function handleExpiryKeydown(e) {
+        var input = e.target;
+        var key = e.key;
+        if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter',
+             'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].indexOf(key) !== -1) {
+          if (key === 'Backspace' && input.selectionStart === 3 && input.value.charAt(2) === '/') {
+            e.preventDefault();
+            input.value = input.value.substring(0, 2);
+            return;
+          }
+          return;
+        }
+        if (e.ctrlKey || e.metaKey) return;
+        if (!/^\d$/.test(key)) {
+          e.preventDefault();
+          return;
+        }
+        var currentDigits = input.value.replace(/\D/g, '');
+        if (currentDigits.length >= 4) {
+          e.preventDefault();
+        }
+      }
+    </script>
+  </body>
+</html>

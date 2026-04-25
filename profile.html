@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile — Smart Cycling Hub</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Antonio:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css?v=10" />
+    <style>
+      /* ---- Profile Avatar Upload (Edit Mode) ---- */
+      .avatar-upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .avatar-upload-area {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        background: #222;
+        border: 3px solid rgba(255,255,255,0.2);
+        transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .avatar-upload-area:hover,
+      .avatar-upload-area:focus-visible {
+        border-color: #17C9E8;
+        box-shadow: 0 0 0 3px rgba(23,201,232,0.3);
+        transform: scale(1.04);
+      }
+      .avatar-upload-area:active {
+        transform: scale(0.97);
+      }
+      .avatar-upload-area img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-upload-area img.visible {
+        display: block;
+      }
+      .avatar-default-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-family: 'Antonio', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, #17C9E8, #0fa0b8);
+        user-select: none;
+      }
+      .avatar-default-icon.has-image {
+        display: none;
+      }
+      .avatar-upload-area .avatar-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s;
+        pointer-events: none;
+      }
+      .avatar-upload-area:hover .avatar-overlay,
+      .avatar-upload-area:focus-visible .avatar-overlay {
+        opacity: 1;
+      }
+      .avatar-overlay i {
+        font-size: 1.6rem;
+        color: #fff;
+      }
+      .avatar-upload-label {
+        margin-top: 0.6rem;
+        font-family: 'Antonio', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .avatar-upload-label:hover {
+        color: #17C9E8;
+      }
+      #editAvatarInput {
+        display: none;
+      }
+
+      /* ---- Button Focus & Accessibility ---- */
+      .btn:focus-visible {
+        outline: 3px solid #17C9E8;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(23,201,232,0.25);
+      }
+      .btn:active {
+        transform: translateY(0px) scale(0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      }
+      .btn-gradient:hover {
+        background: linear-gradient(135deg, #14b8d4, #e8e804);
+      }
+      .btn-gradient:active {
+        background: linear-gradient(135deg, #10a0b8, #d4d404);
+      }
+      .btn-cancel-profile:focus-visible {
+        outline: 3px solid rgba(255,255,255,0.5);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(255,255,255,0.1);
+      }
+      .btn-cancel-profile:active {
+        transform: scale(0.97);
+        background: rgba(255,255,255,0.08);
+      }
+
+      /* ---- Delete Photo Button in Edit Mode ---- */
+      .avatar-delete-btn {
+        margin-top: 0.4rem;
+        font-family: 'Antonio', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #e74c3c;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .avatar-delete-btn:hover {
+        color: #ff6b6b;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Header -->
+    <header>
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <img src="logo.svg" alt="Smart Cycling Hub" />
+          <span>Smart Cycling Hub</span>
+        </a>
+        <nav class="desktop-nav">
+          <a href="index.html">Home</a>
+          <a href="cycling-tips.html">Tips</a>
+          <a href="bike-size-guide.html">Size Guide</a>
+          <a href="maintenance.html">Maintenance</a>
+          <a href="route-insight.html">Routes</a>
+          <a href="bike-finder.html">Bike Finder</a>
+                    <a
+            href="chain-reaction.html"
+            onclick="return requirePaid('chain-reaction.html');"
+            ><img src="LogoCR.svg" alt="Chain Reaction" style="height: 22px; vertical-align: middle;"
+          /></a>
+          <a href="about.html">About</a>
+          <a
+            href="profile.html"
+            class="auth-link show-signed-in active"
+            title="Profile"
+            ><i class="bi bi-person-circle" aria-hidden="true"></i
+          ></a>
+          <a href="signin.html" class="auth-link show-signed-out nav-signin"
+            >Sign In</a
+          >
+          <button
+            onclick="handleSignOut()"
+            class="auth-link show-signed-in nav-signout"
+          >
+            Sign Out
+          </button>
+        </nav>
+        <button class="mobile-toggle" onclick="toggleMobile()" aria-label="Open navigation menu" aria-expanded="false">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="cycling-tips.html">Cycling Tips</a>
+        <a href="bike-size-guide.html">Bike Size Guide</a>
+        <a href="maintenance.html">Maintenance</a>
+        <a href="route-insight.html">Route Insight</a>
+        <a href="bike-finder.html">Bike Finder</a>
+                <a
+          href="chain-reaction.html"
+          onclick="return requirePaid('chain-reaction.html');"
+          >Chain Reaction</a
+        >
+        <a href="about.html">About</a>
+        <a href="policy.html">User Policy</a>
+        <a href="profile.html" class="auth-link show-signed-in" aria-label="Profile">Profile</a>
+        <a href="signin.html" class="auth-link show-signed-out">Sign In</a>
+        <button onclick="handleSignOut()" class="auth-link show-signed-in">
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content">
+
+    <!-- View Mode: Hero + Profile Card -->
+    <div id="profileViewMode">
+      <section
+        class="page-hero"
+        style="
+          background-image: url(&quot;https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1400&q=80&quot;);
+        "
+      >
+        <div class="container">
+          <p class="section-label">Your Account</p>
+          <h1>Profile</h1>
+          <p>View and manage your personal information and subscription.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container" style="max-width: 700px">
+          <div id="profileContent">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Edit Mode: Full-page dark layout matching Create Profile -->
+    <div id="profileEditMode" style="display: none;">
+      <div class="create-profile-page">
+        <div class="create-profile-box">
+          <p class="section-label" style="color: #17c9e8" id="editSectionLabel">Edit Mode</p>
+          <h2 id="editProfileTitle">Edit Your Rider Profile</h2>
+          <div class="stripe-bar"></div>
+          <p class="subtitle">
+            Update your personal details and payment information.
+          </p>
+          <form onsubmit="handleSaveProfileEdit(event)">
+            <!-- Profile Picture Upload -->
+            <div class="avatar-upload-wrapper">
+              <div
+                class="avatar-upload-area"
+                id="editAvatarUploadArea"
+                tabindex="0"
+                role="button"
+                aria-label="Upload profile picture"
+                onclick="document.getElementById('editAvatarInput').click()"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('editAvatarInput').click();}"
+              >
+                <div class="avatar-default-icon" id="editAvatarDefaultIcon">
+                  <i class="bi bi-person"></i>
+                </div>
+                <img id="editAvatarPreview" alt="Profile picture preview" />
+                <div class="avatar-overlay">
+                  <i class="bi bi-camera"></i>
+                </div>
+              </div>
+              <label class="avatar-upload-label" for="editAvatarInput" id="editAvatarLabel">Change Photo</label>
+              <button type="button" class="avatar-delete-btn" id="editAvatarDeleteBtn" style="display:none;" onclick="handleEditDeletePhoto()">Remove Photo</button>
+              <input
+                type="file"
+                id="editAvatarInput"
+                accept="image/jpeg,image/png"
+                onchange="handleEditAvatarUpload(this)"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="editEmail">Email Address</label>
+              <input
+                type="email"
+                id="editEmail"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="editName">Full Name</label>
+              <input
+                type="text"
+                id="editName"
+                placeholder="John Doe"
+                required
+                oninput="updateEditAvatarInitial()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="editPhone">Cell Phone Number</label>
+              <input
+                type="tel"
+                id="editPhone"
+                placeholder="+353 1234567"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="editCountry">Country</label>
+              <select id="editCountry" required></select>
+            </div>
+            <div class="form-group">
+              <label for="editCard">Credit Card Number</label>
+              <input
+                type="text"
+                id="editCard"
+                placeholder="1234 5678 9012 3456"
+                maxlength="19"
+              />
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+              <div class="form-group">
+                <label for="editExpiry">Expiry</label>
+                <input
+                  type="text"
+                  id="editExpiry"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  inputmode="numeric"
+                  oninput="formatExpiryInput(this)"
+                  onkeydown="handleExpiryKeydown(event)"
+                />
+              </div>
+              <div class="form-group">
+                <label for="editCvc">CVC</label>
+                <input type="text" id="editCvc" placeholder="123" maxlength="4" />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-gradient"
+              style="width: 100%; margin-top: 0.5rem"
+            >
+              Save Changes
+            </button>
+          </form>
+          <button
+            type="button"
+            class="btn btn-cancel-profile"
+            onclick="handleCancelEditProfile()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subscription Modal -->
+    <div class="modal-overlay" id="subModal">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">&times;</button>
+        <h2>Unlock Premium</h2>
+        <div class="stripe-bar" style="margin: 0.5rem auto 1rem"></div>
+        <p style="text-align: center; color: #666">
+          Access AI Bike Finder and all Maintenance Guides for every bike type.
+        </p>
+        <div class="plan-cards">
+          <div class="plan-card">
+            <h3>Monthly Plan</h3>
+            <div class="price">&euro;10<span>/month</span></div>
+            <p>Full access to all premium features. Cancel anytime.</p>
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="handleSubscribe()"
+              style="width: 100%"
+            >
+              Subscribe Now
+            </button>
+          </div>
+          <div class="plan-card">
+            <h3>Free Trial</h3>
+            <div class="price">7<span> days</span></div>
+            <p>Try all premium features free for 7 days. No commitment.</p>
+            <button
+              class="btn btn-gradient btn-sm"
+              id="trialBtn"
+              onclick="handleStartTrial()"
+              style="width: 100%"
+            >
+              Start Free Trial
+            </button>
+          </div>
+        </div>
+        <p class="modal-note">
+          Cancel anytime &middot; One trial per email address
+        </p>
+      </div>
+    </div>
+
+    </main>
+
+    <!-- Footer (only shown in view mode) -->
+    <footer id="profileFooter">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img
+              src="logo.svg"
+              alt="Smart Cycling Hub"
+              style="height: 28px"
+            /><a href="index.html" style="text-decoration: none;"><span
+              style="
+                font-family: &quot;Antonio&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                letter-spacing: 0.1em;
+                color: #fff;
+              "
+              >SMART CYCLING HUB</span
+            ></a>
+            <p>Your ultimate cycling companion.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Features</h4>
+            <a href="cycling-tips.html">Cycling Tips</a>
+            <a href="maintenance.html">Maintenance</a>
+            <a href="route-insight.html">Route Insight</a>
+            <a href="bike-finder.html">Bike Finder</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About</a>
+            <a href="policy.html">User Policy</a>
+          </div>
+          <div class="footer-col">
+            <h4>Account</h4>
+            <a href="signin.html">Sign In</a>
+            <a href="profile.html">Profile</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2026 Smart Cycling Hub. All rights reserved. Academic project.
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js?v=10"></script>
+    <script>
+      /* ---- Expiry Date Input Formatting ---- */
+      function formatExpiryInput(input) {
+        // Strip all non-digit characters
+        var digits = input.value.replace(/\D/g, '');
+        // Limit to 4 digits (MMYY)
+        if (digits.length > 4) digits = digits.substring(0, 4);
+        // Auto-insert slash after MM (2 digits or more)
+        if (digits.length >= 2) {
+          input.value = digits.substring(0, 2) + '/' + digits.substring(2);
+        } else {
+          input.value = digits;
+        }
+      }
+
+      function handleExpiryKeydown(e) {
+        var input = e.target;
+        var key = e.key;
+        // Allow: backspace, delete, tab, escape, enter, arrows
+        if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter',
+             'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].indexOf(key) !== -1) {
+          // Special handling for backspace over the slash
+          if (key === 'Backspace' && input.selectionStart === 3 && input.value.charAt(2) === '/') {
+            e.preventDefault();
+            input.value = input.value.substring(0, 2);
+            return;
+          }
+          return;
+        }
+        // Allow Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+        if (e.ctrlKey || e.metaKey) return;
+        // Block non-numeric keys
+        if (!/^\d$/.test(key)) {
+          e.preventDefault();
+          return;
+        }
+        // Block if already at max digits (4)
+        var currentDigits = input.value.replace(/\D/g, '');
+        if (currentDigits.length >= 4) {
+          e.preventDefault();
+        }
+      }
+
+      /* ---- Also apply formatting to Create Profile expiry ---- */
+      function initCreateProfileExpiry() {
+        var cpExpiry = document.getElementById('cpExpiry');
+        if (cpExpiry) {
+          cpExpiry.setAttribute('inputmode', 'numeric');
+          cpExpiry.addEventListener('input', function() { formatExpiryInput(this); });
+          cpExpiry.addEventListener('keydown', function(e) { handleExpiryKeydown(e); });
+        }
+      }
+
+      /* ---- Edit Avatar Upload Handler ---- */
+      function handleEditAvatarUpload(input) {
+        if (!input.files || !input.files[0]) return;
+        var file = input.files[0];
+        if (!file.type.match(/^image\/(jpeg|png)$/)) {
+          alert('Please upload a JPG or PNG image.');
+          input.value = '';
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var preview = document.getElementById('editAvatarPreview');
+          var defaultIcon = document.getElementById('editAvatarDefaultIcon');
+          preview.src = e.target.result;
+          preview.classList.add('visible');
+          defaultIcon.classList.add('has-image');
+          auth.profilePicture = e.target.result;
+          // Update label and show delete button
+          document.getElementById('editAvatarLabel').textContent = 'Change Photo';
+          document.getElementById('editAvatarDeleteBtn').style.display = '';
+        };
+        reader.readAsDataURL(file);
+      }
+
+      /* ---- Delete Photo in Edit Mode ---- */
+      function handleEditDeletePhoto() {
+        auth.profilePicture = '';
+        var preview = document.getElementById('editAvatarPreview');
+        var defaultIcon = document.getElementById('editAvatarDefaultIcon');
+        preview.src = '';
+        preview.classList.remove('visible');
+        defaultIcon.classList.remove('has-image');
+        // Restore initial
+        updateEditAvatarInitial();
+        document.getElementById('editAvatarLabel').textContent = 'Add Photo';
+        document.getElementById('editAvatarDeleteBtn').style.display = 'none';
+      }
+
+      /* ---- Update Avatar Initial from Name (Edit Mode) ---- */
+      function updateEditAvatarInitial() {
+        var preview = document.getElementById('editAvatarPreview');
+        if (preview && preview.classList.contains('visible')) return;
+        var nameInput = document.getElementById('editName');
+        var defaultIcon = document.getElementById('editAvatarDefaultIcon');
+        if (!nameInput || !defaultIcon) return;
+        var name = nameInput.value.trim();
+        if (name.length > 0) {
+          defaultIcon.textContent = name.charAt(0).toUpperCase();
+          defaultIcon.style.fontSize = '3rem';
+        } else {
+          defaultIcon.innerHTML = '<i class="bi bi-person"></i>';
+          defaultIcon.style.fontSize = '';
+        }
+      }
+
+      /* ---- Switch to Edit Mode ---- */
+      function enterEditMode() {
+        profileEditing = true;
+        // Hide view mode, show edit mode
+        document.getElementById('profileViewMode').style.display = 'none';
+        document.getElementById('profileFooter').style.display = 'none';
+        document.getElementById('profileEditMode').style.display = '';
+
+        // Set title based on how user arrived
+        var titleEl = document.getElementById('editProfileTitle');
+        var labelEl = document.getElementById('editSectionLabel');
+        titleEl.textContent = 'Edit Your Rider Profile';
+        labelEl.textContent = 'Your Profile';
+
+        // Populate form fields
+        document.getElementById('editEmail').value = auth.email || '';
+        document.getElementById('editName').value = auth.fullName || '';
+        document.getElementById('editPhone').value = auth.phone || '';
+        populateCountrySelect('editCountry', auth.country);
+        document.getElementById('editCard').value = auth.cardNumber || '';
+        document.getElementById('editExpiry').value = auth.cardExpiry || '';
+        document.getElementById('editCvc').value = auth.cardCvc || '';
+
+        // Populate avatar
+        var preview = document.getElementById('editAvatarPreview');
+        var defaultIcon = document.getElementById('editAvatarDefaultIcon');
+        if (auth.profilePicture) {
+          preview.src = auth.profilePicture;
+          preview.classList.add('visible');
+          defaultIcon.classList.add('has-image');
+          document.getElementById('editAvatarLabel').textContent = 'Change Photo';
+          document.getElementById('editAvatarDeleteBtn').style.display = '';
+        } else {
+          preview.src = '';
+          preview.classList.remove('visible');
+          defaultIcon.classList.remove('has-image');
+          document.getElementById('editAvatarLabel').textContent = 'Add Photo';
+          document.getElementById('editAvatarDeleteBtn').style.display = 'none';
+          updateEditAvatarInitial();
+        }
+
+        window.scrollTo(0, 0);
+      }
+
+      /* ---- Cancel Edit Mode ---- */
+      function handleCancelEditProfile() {
+        profileEditing = false;
+        document.getElementById('profileEditMode').style.display = 'none';
+        document.getElementById('profileViewMode').style.display = '';
+        document.getElementById('profileFooter').style.display = '';
+        renderProfile();
+        window.scrollTo(0, 0);
+      }
+
+      /* ---- Save from Edit Mode ---- */
+      function handleSaveProfileEdit(e) {
+        e.preventDefault();
+        auth.email = document.getElementById('editEmail').value.trim();
+        auth.fullName = document.getElementById('editName').value.trim();
+        auth.phone = document.getElementById('editPhone').value.trim();
+        auth.country = document.getElementById('editCountry').value;
+        auth.cardNumber = document.getElementById('editCard').value.trim();
+        auth.cardExpiry = document.getElementById('editExpiry').value.trim();
+        auth.cardCvc = document.getElementById('editCvc').value.trim();
+        if (typeof auth.profilePicture === 'undefined') {
+          auth.profilePicture = '';
+        }
+        saveAuth();
+        profileEditing = false;
+        document.getElementById('profileEditMode').style.display = 'none';
+        document.getElementById('profileViewMode').style.display = '';
+        document.getElementById('profileFooter').style.display = '';
+        renderProfile();
+        renderHeaderAvatar();
+        window.scrollTo(0, 0);
+      }
+
+      function pageInit() {
+        if (!auth.isAuthenticated) {
+          window.location.href = "signin.html";
+          return;
+        }
+
+        // Check if user navigated here from profile icon (direct navigation)
+        // If ?edit=1 param is present, go straight to edit mode
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('edit') === '1') {
+          renderProfile();
+          enterEditMode();
+          return;
+        }
+
+        renderProfile();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1076 @@
+/* ============================================================
+   Smart Cycling Hub — style.css
+   Multi-page static site — works with file:// and Live Server
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Amiko', sans-serif;
+  color: #222;
+  background: #fff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: #17C9E8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3, h4 { font-family: 'Antonio', sans-serif; font-weight: 700; line-height: 1.15; }
+h1 { font-size: 3rem; letter-spacing: -1px; }
+h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+h3 { font-size: 1.3rem; }
+ul, ol { list-style: none; }
+
+/* ---------- Container ---------- */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- Section Label ---------- */
+.section-label {
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #17C9E8;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Stripe Bar ---------- */
+.stripe-bar {
+  width: 80px; height: 4px;
+  background: linear-gradient(90deg, #17C9E8, #FAFA05);
+  margin: 0.75rem 0 1.5rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  border: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); text-decoration: none; }
+.btn-primary { background: #000; color: #fff; }
+.btn-gradient { background: linear-gradient(135deg, #17C9E8, #FAFA05); color: #000; }
+.btn-outline { background: transparent; color: #fff; border: 2px solid #fff; }
+.btn-outline-dark { background: transparent; color: #000; border: 2px solid #000; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+.hidden { display: none !important; }
+
+/* ---------- Header ---------- */
+header {
+  background: #000;
+  position: sticky; top: 0; z-index: 1000;
+  border-bottom: 2px solid #17C9E8;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.logo { display: flex; align-items: center; gap: 0.25rem; text-decoration: none; }
+.logo:hover { text-decoration: none; }
+.logo img { height: 36px; width: auto; flex-shrink: 0; }
+.logo span {
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: #fff; letter-spacing: 2px; text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Desktop Nav */
+.desktop-nav { display: flex; align-items: center; gap: 0.25rem; }
+.desktop-nav a, .desktop-nav button {
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  padding: 0.5rem 0.75rem;
+  background: none; border: none; cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.desktop-nav a:hover, .desktop-nav button:hover,
+.desktop-nav a.active { color: #17C9E8; text-decoration: none; }
+.nav-signout { color: #FAFA05 !important; }
+.nav-signin { color: #17C9E8 !important; }
+
+/* ---- Header Nav Avatar ---- */
+.nav-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.nav-avatar-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #17C9E8, #0fa0b8);
+  color: #fff;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ---- Profile Page Avatar ---- */
+.profile-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.profile-avatar-large {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #17C9E8;
+  box-shadow: 0 4px 16px rgba(23,201,232,0.2);
+}
+.profile-avatar-large .profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.profile-avatar-large .profile-avatar-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #17C9E8, #0fa0b8);
+  color: #fff;
+  font-family: 'Antonio', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+.profile-avatar-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.profile-avatar-actions .btn {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.9rem;
+}
+.profile-avatar-actions .btn:focus-visible {
+  outline: 3px solid #17C9E8;
+  outline-offset: 2px;
+}
+
+/* Mobile Nav */
+.mobile-toggle {
+  display: none;
+  background: none; border: none; color: #fff;
+  font-size: 1.5rem; cursor: pointer;
+}
+.mobile-menu {
+  display: none;
+  position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.97);
+  flex-direction: column; padding: 2rem;
+  z-index: 999;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a, .mobile-menu button {
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  padding: 0.75rem 0;
+  background: none; border: none; cursor: pointer;
+  text-align: left; text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.mobile-menu a:hover, .mobile-menu button:hover { color: #17C9E8; }
+
+@media (max-width: 900px) {
+  .desktop-nav { display: none; }
+  .mobile-toggle { display: block; }
+  .logo { gap: 0.2rem; }
+  .logo img { height: 34px; }
+  .logo span { font-size: 1rem; letter-spacing: 1.5px; }
+}
+@media (max-width: 400px) {
+  .logo { gap: 0.15rem; }
+  .logo img { height: 28px; }
+  .logo span { font-size: 0.85rem; letter-spacing: 1px; }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 6rem 0;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4));
+}
+.hero .container { position: relative; z-index: 1; }
+.hero h1 { font-size: 3.5rem; max-width: 700px; }
+.hero p { font-size: 1.1rem; max-width: 600px; margin: 1rem 0 2rem; color: rgba(255,255,255,0.85); }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* ---------- Page Hero (smaller) ---------- */
+.page-hero {
+  position: relative;
+  padding: 3rem 0;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.5));
+}
+.page-hero .container { position: relative; z-index: 1; }
+.page-hero h1 { font-size: 2.5rem; }
+.page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+/* ---------- Footer ---------- */
+footer {
+  background: #000; color: rgba(255,255,255,0.6);
+  padding: 3rem 0 1.5rem;
+  margin-top: 4rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+.footer-brand img { height: 28px; }
+.footer-brand span { display: block; margin-top: 0.25rem; }
+.footer-brand p { margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.7; }
+.footer-col h4 {
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.85rem; letter-spacing: 2px;
+  text-transform: uppercase; color: #17C9E8;
+  margin-bottom: 0.75rem;
+}
+.footer-col a {
+  display: block; color: rgba(255,255,255,0.6);
+  font-size: 0.85rem; padding: 0.2rem 0;
+}
+.footer-col a:hover { color: #17C9E8; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Forms ---------- */
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+  display: block;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-family: 'Amiko', sans-serif;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: #17C9E8;
+}
+.form-group input::placeholder { color: rgba(255,255,255,0.4); }
+.form-group select option { background: #111; color: #fff; }
+
+/* Light form variant */
+.form-light .form-group label { color: #333; }
+.form-light .form-group input,
+.form-light .form-group select,
+.form-light .form-group textarea {
+  background: #fff; color: #333; border: 1px solid #ddd;
+}
+.form-light .form-group input:focus,
+.form-light .form-group select:focus,
+.form-light .form-group textarea:focus { border-color: #17C9E8; }
+.form-light .form-group input::placeholder { color: #aaa; }
+
+/* ---------- Password Toggle ---------- */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-wrapper input {
+  flex: 1;
+  padding-right: 2.8rem;
+}
+.password-toggle {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.password-toggle:hover { color: #fff; }
+
+/* ---------- Section ---------- */
+.section { padding: 4rem 0; }
+.section-alt { background: #f7f7f7; }
+
+/* ---------- Sign In Page ---------- */
+.signin-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.signin-col {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem 2rem;
+  background-size: cover; background-position: center;
+}
+.signin-col::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.7);
+}
+.signin-col .form-box {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 400px;
+}
+.signin-col h2 { color: #fff; font-size: 2rem; margin-bottom: 0.25rem; }
+.signin-col .subtitle { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+/* White card panel behind sign-in form content */
+.signin-col .form-box {
+  background: rgba(255, 255, 255, 0.97);
+  padding: 2.5rem 2rem;
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+.signin-col h2 { color: #111; }
+.signin-col .subtitle { color: #555; }
+.signin-col .form-box .form-group label { color: #333; }
+.signin-col .form-box .form-group input {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+.signin-col .form-box .form-group input::placeholder { color: #aaa; }
+.signin-col .form-box .form-group input:focus { border-color: #17C9E8; }
+.signin-col .form-box .password-toggle { color: #888; }
+.signin-col .form-box .password-toggle:hover { color: #333; }
+.signin-col .form-box .social-divider::before,
+.signin-col .form-box .social-divider::after {
+  background: #ddd;
+}
+.signin-col .form-box .social-divider span { color: #888; }
+.signin-col .form-box .social-btn {
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  color: #333;
+}
+.signin-col .form-box .social-google:hover { background: rgba(66,133,244,0.1); border-color: #4285F4; }
+.signin-col .form-box .social-facebook:hover { background: rgba(24,119,242,0.1); border-color: #1877F2; }
+.signin-col .form-box .social-instagram:hover { background: rgba(214,36,159,0.1); border-color: #D6249F; }
+.signin-col .form-box p a { color: #17C9E8; }
+
+@media (max-width: 767px) {
+  .signin-page { grid-template-columns: 1fr; }
+}
+
+/* ---------- Profile Card ---------- */
+.profile-card {
+  background: #f9f9f9; border: 1px solid #eee;
+  padding: 1.5rem; margin-bottom: 1.5rem;
+}
+.profile-card label {
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: #888; margin-top: 1rem; display: block;
+}
+.profile-card label:first-child { margin-top: 0; }
+.profile-card .value { font-size: 1rem; color: #222; padding: 0.25rem 0; }
+.profile-card input, .profile-card select {
+  width: 100%; padding: 0.6rem 0.75rem;
+  border: 1px solid #ddd; font-family: 'Amiko', sans-serif;
+  font-size: 0.9rem; margin-top: 0.25rem;
+}
+.profile-card input:focus, .profile-card select:focus {
+  outline: none; border-color: #17C9E8;
+}
+.profile-actions { margin-top: 1.5rem; display: flex; gap: 0.75rem; }
+
+/* Subscription box */
+.sub-box {
+  background: #000; color: #fff; padding: 1.5rem; margin-top: 1.5rem;
+}
+.sub-box h3 { color: #17C9E8; margin-bottom: 0.5rem; }
+.sub-status {
+  display: inline-block; padding: 0.25rem 0.75rem;
+  font-family: 'Antonio', sans-serif; font-size: 0.85rem;
+  font-weight: 700; letter-spacing: 1px;
+}
+.sub-free { background: #333; color: #aaa; }
+.sub-trial { background: linear-gradient(135deg, #17C9E8, #FAFA05); color: #000; }
+.sub-subscribed { background: #17C9E8; color: #000; }
+
+/* ---------- Subscription Modal ---------- */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #fff; padding: 2.5rem;
+  max-width: 550px; width: 90%;
+  position: relative;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; font-size: 1.5rem;
+  cursor: pointer; color: #888;
+}
+.modal-box h2 { text-align: center; margin-bottom: 0.5rem; }
+.modal-box .stripe-bar { margin: 0.5rem auto 1.5rem; }
+.plan-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.plan-card {
+  border: 2px solid #eee; padding: 1.5rem; text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.plan-card:hover { border-color: #17C9E8; transform: translateY(-3px); }
+.plan-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.plan-card .price { font-size: 1.8rem; font-weight: 700; font-family: 'Antonio', sans-serif; color: #000; }
+.plan-card .price span { font-size: 0.9rem; font-weight: 400; color: #888; }
+.plan-card p { color: #666; font-size: 0.85rem; margin: 0.5rem 0 1rem; }
+.modal-note { text-align: center; color: #888; font-size: 0.8rem; margin-top: 1rem; }
+
+@media (max-width: 575px) {
+  .plan-cards { grid-template-columns: 1fr; }
+}
+
+/* ---------- Feature Cards (Home) ---------- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.feature-card {
+  background: #fff; border: 1px solid #eee;
+  padding: 1.5rem; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.feature-card h3 { margin-bottom: 0.4rem; }
+.feature-card p { color: #666; font-size: 0.88rem; }
+.feature-card .premium-badge {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  background: linear-gradient(135deg, #17C9E8, #FAFA05);
+  color: #000; font-family: 'Antonio', sans-serif;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 1px; padding: 0.2rem 0.5rem;
+}
+.feature-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #17C9E8, #FAFA05);
+  color: #000;
+  font-size: 1.3rem; margin-bottom: 0.75rem;
+}
+
+/* ---------- Tips Grid ---------- */
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.tip-card {
+  background: #fff; border: 1px solid #eee; padding: 1.25rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.tip-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.tip-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, #17C9E8, #FAFA05);
+  font-family: 'Antonio', sans-serif;
+  font-weight: 700; font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+.tip-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.tip-card p { color: #666; font-size: 0.88rem; }
+
+/* ---------- Size Tables ---------- */
+.size-tables { margin-top: 2rem; }
+.size-tables h3 { margin: 1.5rem 0 0.75rem; }
+.size-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+.size-table th { background: #000; color: #fff; padding: 0.6rem 1rem; text-align: left; font-size: 0.85rem; }
+.size-table td { padding: 0.6rem 1rem; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+.size-table tr:hover td { background: #f5f5f5; }
+
+/* ---------- Bike Size Guide Tool ---------- */
+.size-tool { max-width: 500px; margin: 2rem auto; padding: 2rem; background: #f9f9f9; border: 1px solid #eee; }
+.size-result {
+  margin-top: 1.5rem; padding: 1.5rem;
+  background: #000; color: #fff; text-align: center;
+}
+.size-result h3 { color: #17C9E8; margin-bottom: 0.25rem; }
+.size-result .frame-size { font-family: 'Antonio', sans-serif; font-size: 2.5rem; color: #FAFA05; }
+
+/* ---------- Maintenance Tabs ---------- */
+.maint-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.maint-tab {
+  padding: 0.6rem 1.2rem; font-size: 0.85rem; font-weight: 700;
+  background: #eee; color: #555; border: none; cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'Antonio', sans-serif; letter-spacing: 1px; text-transform: uppercase;
+}
+.maint-tab.active { background: #000; color: #17C9E8; }
+.maint-tab:hover { background: #ddd; }
+.maint-tab.active:hover { background: #000; }
+.maint-panel { display: none; }
+.maint-panel.active { display: block; }
+.maint-list { list-style: none; counter-reset: maint; }
+.maint-list li {
+  counter-increment: maint;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.maint-list li::before {
+  content: counter(maint, decimal-leading-zero);
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: #17C9E8; min-width: 36px;
+}
+.maint-list li strong { display: block; margin-bottom: 0.2rem; }
+.maint-list li span { color: #666; font-size: 0.9rem; }
+.maint-lock-overlay {
+  text-align: center; padding: 3rem 1rem;
+  background: #f9f9f9; border: 1px solid #eee;
+}
+.maint-lock-overlay p { color: #666; margin-bottom: 1rem; }
+
+/* ---------- Bike Finder ---------- */
+.finder-form { max-width: 600px; margin: 0 auto 2rem; padding: 2rem; background: #f9f9f9; border: 1px solid #eee; }
+.finder-form .form-group label { color: #333; }
+.finder-form .form-group select { background: #fff; color: #333; border: 1px solid #ddd; }
+.finder-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.bike-results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.bike-card { background: #fff; border: 1px solid #eee; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; border-radius: 8px; }
+.bike-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.bike-card img { width: 100%; height: 200px; object-fit: cover; background: #f0f0f0; }
+.bike-card-body { padding: 1rem; }
+.bike-card h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+.bike-card .bike-price { color: #17C9E8; font-family: 'Antonio', sans-serif; font-size: 1.2rem; font-weight: 700; }
+.bike-card .bike-shop { color: #888; font-size: 0.8rem; margin-top: 0.25rem; }
+.bike-card a { display: inline-block; margin-top: 0.75rem; font-size: 0.85rem; font-weight: 700; color: #17C9E8; }
+
+/* ---------- Route Insight ---------- */
+.route-form { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+.route-form input { flex: 1; min-width: 200px; padding: 0.7rem 1rem; border: 1px solid #ddd; font-family: 'Amiko', sans-serif; }
+.route-form input:focus { outline: none; border-color: #17C9E8; }
+#map-container { width: 100%; height: 450px; background: #eee; border: 1px solid #ddd; margin-bottom: 1.5rem; }
+.route-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.stat-card { background: #000; color: #fff; padding: 1.25rem; text-align: center; }
+.stat-card .stat-value { font-family: 'Antonio', sans-serif; font-size: 2rem; color: #17C9E8; }
+.stat-card .stat-label { font-size: 0.8rem; color: #aaa; margin-top: 0.25rem; }
+.route-insight-text { margin-top: 1rem; padding: 1rem; background: #f9f9f9; border-left: 4px solid #17C9E8; font-size: 0.95rem; }
+.stat-box { background: #000; color: #fff; padding: 1.25rem; text-align: center; border-radius: 8px; }
+.stat-box .stat-value { font-family: 'Antonio', sans-serif; font-size: 1.8rem; color: #17C9E8; }
+.stat-box .stat-label { font-size: 0.8rem; color: #aaa; margin-top: 0.25rem; }
+
+/* ---------- FAQ ---------- */
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid #eee; }
+.faq-q, .faq-question {
+  width: 100%; text-align: left; padding: 1rem 0;
+  background: none; font-size: 1rem; font-weight: 700;
+  color: #111; display: flex; justify-content: space-between;
+  align-items: center; border: none; cursor: pointer;
+  font-family: 'Amiko', sans-serif;
+}
+.faq-q:hover, .faq-question:hover { color: #17C9E8; }
+.faq-q i, .faq-question .faq-icon { font-size: 1.2rem; transition: transform 0.3s; }
+.faq-q.open i, .faq-question.open .faq-icon { transform: rotate(180deg); }
+.faq-a, .faq-answer { display: none; padding: 0 0 1rem; color: #555; font-size: 0.9rem; line-height: 1.7; }
+.faq-a.open, .faq-answer.open { display: block; }
+
+/* ---------- Contact Form ---------- */
+.contact-form { max-width: 600px; margin: 0 auto; }
+.contact-form .form-group label { color: #333; }
+.contact-form .form-group input,
+.contact-form .form-group select,
+.contact-form .form-group textarea {
+  background: #fff; color: #333; border: 1px solid #ddd;
+}
+
+/* ---------- Contact Form Enhancements ---------- */
+.form-light .form-group select {
+  appearance: auto;
+  cursor: pointer;
+}
+.field-error {
+  display: block;
+  font-size: 0.8rem;
+  color: #d9534f;
+  margin-top: 0.3rem;
+  min-height: 0;
+  line-height: 1.4;
+}
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+  border-color: #d9534f !important;
+}
+.checkbox-group {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: #333;
+  cursor: pointer;
+  font-family: 'Amiko', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  accent-color: #17C9E8;
+}
+.checkbox-label a {
+  color: #17C9E8;
+  text-decoration: underline;
+}
+.checkbox-label a:hover {
+  color: #0fa0b8;
+}
+
+/* ---------- Policy ---------- */
+.policy-list { counter-reset: policy; max-width: 800px; margin: 0 auto; list-style: none; }
+.policy-list li {
+  counter-increment: policy;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem; color: #444; line-height: 1.7;
+}
+.policy-list li::before {
+  content: counter(policy) ". ";
+  font-weight: 700; color: #17C9E8;
+}
+
+/* ---------- Upgrade Banner ---------- */
+.upgrade-banner { background: #000; padding: 1rem 0; }
+.upgrade-banner-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.upgrade-banner p { color: #fff; font-size: 0.9rem; }
+.upgrade-banner strong { color: #17C9E8; }
+
+/* ---------- Social Login ---------- */
+.social-divider {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 1.25rem 0;
+}
+.social-divider::before, .social-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+.social-divider span {
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+}
+.social-buttons {
+  display: flex; gap: 0.75rem;
+}
+.social-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.social-btn:hover {
+  transform: translateY(-2px);
+}
+.social-btn svg { flex-shrink: 0; }
+.social-google:hover { background: rgba(66,133,244,0.15); border-color: #4285F4; }
+.social-facebook:hover { background: rgba(24,119,242,0.15); border-color: #1877F2; }
+.social-instagram:hover { background: rgba(214,36,159,0.15); border-color: #D6249F; }
+
+@media (max-width: 575px) {
+  .social-buttons { flex-direction: column; }
+}
+
+/* ---------- Cancel Profile Button ---------- */
+.btn-cancel-profile {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  text-align: center;
+}
+.btn-cancel-profile:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ---------- Create Profile ---------- */
+.create-profile-page {
+  min-height: 100vh;
+  background: #111;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem 1.5rem;
+}
+.create-profile-box {
+  width: 100%; max-width: 500px;
+}
+.create-profile-box h2 { color: #fff; }
+.create-profile-box .subtitle { color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 575px) {
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.6rem; }
+  .hero { padding: 4rem 0; }
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 2.5rem 0; }
+}
+
+/* ---------- Subscription Confirmation Modal ---------- */
+.confirm-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 3000;
+  align-items: center; justify-content: center;
+}
+.confirm-overlay.open { display: flex; }
+.confirm-box {
+  background: #fff;
+  padding: 2.5rem 2rem 2rem;
+  max-width: 440px; width: 90%;
+  text-align: center;
+  position: relative;
+  animation: confirmFadeIn 0.3s ease;
+}
+@keyframes confirmFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.confirm-box .confirm-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #17C9E8, #FAFA05);
+  border-radius: 50%;
+  font-size: 1.6rem; color: #000;
+}
+.confirm-box h2 {
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.6rem; margin-bottom: 0.25rem;
+}
+.confirm-box .confirm-plan {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0.75rem 0 0.5rem;
+}
+.confirm-plan-trial {
+  background: linear-gradient(135deg, #17C9E8, #FAFA05); color: #000;
+}
+.confirm-plan-subscribed {
+  background: #17C9E8; color: #000;
+}
+.confirm-box .confirm-detail {
+  color: #666; font-size: 0.92rem; line-height: 1.7;
+  margin: 0.5rem 0 1.25rem;
+}
+.confirm-box .confirm-detail strong {
+  color: #222;
+}
+.confirm-box .btn-confirm-close {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 2rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  background: #000; color: #fff;
+  border: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.confirm-box .btn-confirm-close:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* ---------- Subscription Required Popup Close ---------- */
+.sub-req-close-x {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  background: none; border: none; font-size: 1.5rem;
+  cursor: pointer; color: #888; line-height: 1;
+  transition: color 0.2s;
+}
+.sub-req-close-x:hover { color: #222; }
+
+/* ---------- Cancellation Confirmation Modal ---------- */
+.confirm-box .confirm-actions {
+  display: flex; gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+.confirm-box .btn-cancel-dismiss {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 2rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  background: transparent; color: #222;
+  border: 2px solid #ddd; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.confirm-box .btn-cancel-dismiss:hover {
+  border-color: #17C9E8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.confirm-box .btn-cancel-proceed {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 2rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  background: #d9534f; color: #fff;
+  border: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.confirm-box .btn-cancel-proceed:hover {
+  background: #c9302c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217,83,79,0.3);
+}
+
+/* ============================================================
+   Accessible Dialog — Focus, Keyboard, and Default States
+   ============================================================ */
+
+/* --- Focus-visible outlines for all dialog buttons --- */
+.confirm-box button:focus-visible,
+.confirm-box a:focus-visible,
+.modal-box button:focus-visible,
+.modal-box a:focus-visible {
+  outline: 3px solid #17C9E8;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(23,201,232,0.25);
+}
+
+/* --- Active (press) states for all dialog buttons --- */
+.confirm-box button:active,
+.confirm-box a:active,
+.modal-box button:active,
+.modal-box a:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.08s ease;
+}
+
+/* --- Default Cancel button: pre-selected visual highlight --- */
+.confirm-box .btn-cancel-dismiss {
+  border-color: #17C9E8;
+  box-shadow: 0 0 0 2px rgba(23,201,232,0.3);
+}
+.confirm-box .btn-cancel-dismiss:hover {
+  border-color: #0fb3cc;
+  background: rgba(23,201,232,0.06);
+  box-shadow: 0 4px 16px rgba(23,201,232,0.2);
+}
+
+/* --- Confirm/Proceed button hover & active --- */
+.confirm-box .btn-cancel-proceed:active {
+  background: #b52b27;
+}
+
+/* --- Single-action button (Continue / OK) focus highlight --- */
+.confirm-box .btn-confirm-close:focus-visible {
+  outline: 3px solid #17C9E8;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(23,201,232,0.25);
+}
+.confirm-box .btn-confirm-close:active {
+  transform: scale(0.96) !important;
+  background: #222;
+}
+
+/* --- Subscription Required close X focus --- */
+.sub-req-close-x:focus-visible {
+  outline: 2px solid #17C9E8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Static subscription modal button focus --- */
+.modal-close:focus-visible {
+  outline: 2px solid #17C9E8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.plan-card button:focus-visible {
+  outline: 3px solid #17C9E8;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(23,201,232,0.25);
+}
+.plan-card button:active {
+  transform: scale(0.96) !important;
+}
+
+/* ============================================================
+   Accessibility Enhancements
+   ============================================================ */
+
+/* ---------- Skip-to-Content Link ---------- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: #000;
+  color: #17C9E8;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  z-index: 10000;
+  border: 2px solid #17C9E8;
+}
+.skip-link:focus {
+  top: 0.75rem;
+  outline: 3px solid #FAFA05;
+  outline-offset: 2px;
+}
+
+/* ---------- Global Focus-Visible Outlines ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #17C9E8;
+  outline-offset: 2px;
+}
+
+/* Override outline:none on form inputs — keep border glow AND visible outline */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible,
+.route-form input:focus-visible,
+.profile-card input:focus-visible,
+.profile-card select:focus-visible {
+  outline: 2px solid #17C9E8;
+  outline-offset: 1px;
+}
+
+/* ---------- Prefers Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Visually Hidden Utility ---------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
