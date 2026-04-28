@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bike Finder — Smart Cycling Hub</title>
+    <script>
+      // Access control — runs before any rendering
+      (function () {
+        try {
+          var a = JSON.parse(localStorage.getItem("sch_auth") || "{}");
+          var authed = a.isAuthenticated === true;
+          var paid =
+            a.subscription === "trial" || a.subscription === "subscribed";
+          if (!authed || !paid) {
+            // Mark that we need to show the popup after page loads
+            window.__schBlockedAccess = true;
+          }
+        } catch (e) {
+          window.__schBlockedAccess = true;
+        }
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Antonio:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css?v=9" />
+      <link rel="stylesheet" href="accessibility.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Header -->
+    <header>
+      <div class="header-inner">
+        <a href="index.html" class="logo"
+          ><img src="logo.svg" alt="SCH" /><span>Smart Cycling Hub</span></a
+        >
+        <nav class="desktop-nav">
+          <a href="index.html">Home</a>
+          <a href="cycling-tips.html">Tips</a>
+          <a href="bike-size-guide.html">Size Guide</a>
+          <a href="maintenance.html">Maintenance</a>
+          <a href="route-insight.html">Routes</a>
+          <a href="bike-finder.html" class="active">Bike Finder</a>
+                    <a
+            href="chain-reaction.html"
+            onclick="return requirePaid('chain-reaction.html');"
+            ><img src="LogoCR.svg" alt="Chain Reaction" style="height: 22px; vertical-align: middle;"
+          /></a>
+          <a href="about.html">About</a>
+          <a
+            href="profile.html"
+            class="auth-link show-signed-in" aria-label="Profile" title="Profile"
+            ><i class="bi bi-person-circle" aria-hidden="true"></i
+          ></a>
+          <a href="signin.html" class="auth-link show-signed-out nav-signin"
+            >Sign In</a
+          >
+          <button
+            onclick="handleSignOut()"
+            class="auth-link show-signed-in nav-signout"
+          >
+            Sign Out
+          </button>
+        </nav>
+        <button class="mobile-toggle" onclick="toggleMobile()" aria-label="Open navigation menu" aria-expanded="false">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="cycling-tips.html">Cycling Tips</a
+        ><a href="bike-size-guide.html">Bike Size Guide</a>
+        <a href="maintenance.html">Maintenance</a
+        ><a href="route-insight.html">Route Insight</a
+        ><a href="bike-finder.html">Bike Finder</a>
+                <a
+          href="chain-reaction.html"
+          onclick="return requirePaid('chain-reaction.html');"
+          >Chain Reaction</a
+        >
+        <a href="about.html">About</a><a href="policy.html">User Policy</a>
+        <a href="profile.html" class="auth-link show-signed-in">Profile</a>
+        <a href="signin.html" class="auth-link show-signed-out">Sign In</a>
+        <button onclick="handleSignOut()" class="auth-link show-signed-in">
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content">
+
+    <section
+      class="page-hero"
+      style="
+        background-image: url(&quot;https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=1400&q=80&quot;);
+      "
+    >
+      <div class="container">
+        <p class="section-label">Premium Feature</p>
+        <h1>AI Bike Finder</h1>
+        <p>
+          Get personalised bike recommendations based on your budget, terrain,
+          and experience level.
+        </p>
+      </div>
+    </section>
+
+    <!-- Paid access gate -->
+    <section class="section" id="bikeFinderLock" style="display: none">
+      <div class="container">
+        <div class="maint-lock-overlay" style="padding: 4rem 2rem">
+          <i class="bi bi-lock" style="font-size: 3rem; color: #17c9e8"></i>
+          <h2 style="margin-top: 1rem">Premium Feature</h2>
+          <div class="stripe-bar" style="margin: 0.75rem auto 1.5rem"></div>
+          <p
+            style="
+              max-width: 500px;
+              margin: 0 auto 1rem;
+              color: #666;
+              font-size: 1rem;
+              line-height: 1.7;
+            "
+          >
+            The AI Bike Finder is a premium feature. Choose a subscription plan
+            below to unlock personalised bike recommendations based on your
+            budget, terrain, and experience level.
+          </p>
+          <div class="plan-cards" style="margin: 1.5rem auto; max-width: 550px">
+            <div class="plan-card">
+              <h3>Monthly Plan</h3>
+              <div class="price">&euro;10<span>/month</span></div>
+              <p>Full access to all premium features. Cancel anytime.</p>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="handleSubscribe()"
+                style="width: 100%"
+              >
+                Subscribe Now
+              </button>
+            </div>
+            <div class="plan-card">
+              <h3>Free Trial</h3>
+              <div class="price">7<span> days</span></div>
+              <p>Try all premium features free for 7 days. No commitment.</p>
+              <button
+                class="btn btn-gradient btn-sm"
+                id="trialBtnBF"
+                onclick="handleStartTrial()"
+                style="width: 100%"
+              >
+                Start Free Trial
+              </button>
+            </div>
+          </div>
+          <p class="modal-note">
+            Cancel anytime &middot; One trial per email address
+          </p>
+          <p style="margin-top: 1rem">
+            <a href="index.html" style="color: #17c9e8; font-size: 0.9rem"
+              >&larr; Back to Home</a
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bike Finder Tool -->
+    <div id="bikeFinderContent">
+      <section class="section">
+        <div class="container">
+          <div class="finder-tool form-light">
+            <h3 style="text-align: center; margin-bottom: 1rem">
+              Find Your Perfect Bike
+            </h3>
+            <div class="form-group">
+              <label for="bfBudget">Budget Range (&euro;)</label>
+              <select id="bfBudget">
+                <option value="500">Under &euro;500</option>
+                <option value="1000">&euro;500 – &euro;1,000</option>
+                <option value="2000" selected>&euro;1,000 – &euro;2,000</option>
+                <option value="3000">&euro;2,000 – &euro;3,000</option>
+                <option value="5000">&euro;3,000+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bfTerrain">Primary Terrain</label>
+              <select id="bfTerrain">
+                <option value="city">City / Urban</option>
+                <option value="road">Road / Paved</option>
+                <option value="mountain">Mountain / Trail</option>
+                <option value="gravel">Gravel / Mixed</option>
+                <option value="electric">Electric / Commute</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bfExperience">Experience Level</label>
+              <select id="bfExperience">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate" selected>Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+            <button
+              class="btn btn-gradient"
+              style="width: 100%"
+              onclick="findBikes()"
+            >
+              <i class="bi bi-search"></i> Find Bikes
+            </button>
+          </div>
+
+          <div id="bikeResults" style="display: none; margin-top: 2rem">
+            <h3 style="text-align: center; margin-bottom: 1rem">
+              Recommended Bikes
+            </h3>
+            <div class="bike-results-grid" id="bikeResultsGrid"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Subscription Modal -->
+    <div class="modal-overlay" id="subModal">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">&times;</button>
+        <h2>Unlock Premium</h2>
+        <div class="stripe-bar" style="margin: 0.5rem auto 1rem"></div>
+        <p style="text-align: center; color: #666">
+          Access AI Bike Finder, Route Insight, and all Maintenance Guides for
+          every bike type.
+        </p>
+        <div class="plan-cards">
+          <div class="plan-card">
+            <h3>Monthly Plan</h3>
+            <div class="price">&euro;10<span>/month</span></div>
+            <p>Full access. Cancel anytime.</p>
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="handleSubscribe()"
+              style="width: 100%"
+            >
+              Subscribe Now
+            </button>
+          </div>
+          <div class="plan-card">
+            <h3>Free Trial</h3>
+            <div class="price">7<span> days</span></div>
+            <p>Try free for 7 days.</p>
+            <button
+              class="btn btn-gradient btn-sm"
+              id="trialBtn"
+              onclick="handleStartTrial()"
+              style="width: 100%"
+            >
+              Start Free Trial
+            </button>
+          </div>
+        </div>
+        <p class="modal-note">
+          Cancel anytime &middot; One trial per email address
+        </p>
+      </div>
+    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="logo.svg" alt="SCH" style="height: 28px" /><a href="index.html" style="text-decoration: none;"><span
+              style="
+                font-family: &quot;Antonio&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                letter-spacing: 0.1em;
+                color: #fff;
+              "
+              >SMART CYCLING HUB</span
+            ></a>
+            <p>Your ultimate cycling companion.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Features</h4>
+            <a href="cycling-tips.html">Cycling Tips</a
+            ><a href="maintenance.html">Maintenance</a
+            ><a href="route-insight.html">Route Insight</a
+            ><a href="bike-finder.html">Bike Finder</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About</a><a href="policy.html">User Policy</a>
+          </div>
+          <div class="footer-col">
+            <h4>Account</h4>
+            <a href="signin.html">Sign In</a><a href="profile.html">Profile</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2026 Smart Cycling Hub. All rights reserved. Academic project.
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js?v=9"></script>
+    <script>
+      function pageInit() {
+        if (!auth.isAuthenticated || !hasPaidAccess()) {
+          // No auth or no paid access — show popup
+          showSubscriptionPopup();
+          return;
+        }
+        // Subscribed user — show bike finder
+        document.getElementById("bikeFinderContent").style.display = "";
+        document.getElementById("bikeFinderLock").style.display = "none";
+      }
+    </script>
+      <script src="accessibility.js"></script>
+  </body>
+</html>

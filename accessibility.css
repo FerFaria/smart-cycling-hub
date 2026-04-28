@@ -1,0 +1,293 @@
+/* ==========================================================
+   Accessibility Widget — Smart Cycling Hub
+   Standalone additive component. Does NOT modify existing CSS.
+   ========================================================== */
+
+/* ---------- Floating Trigger Button ---------- */
+#a11y-trigger {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 10000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #17C9E8;
+  background: linear-gradient(135deg, #17C9E8, #FAFA05);
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+#a11y-trigger:hover,
+#a11y-trigger:focus-visible {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 24px rgba(23, 201, 232, 0.45);
+}
+#a11y-trigger svg {
+  width: 26px;
+  height: 26px;
+  fill: #000;
+}
+
+/* ---------- Panel Overlay ---------- */
+#a11y-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+#a11y-overlay.a11y-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------- Panel ---------- */
+#a11y-panel {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.25rem;
+  z-index: 10002;
+  width: 320px;
+  max-height: calc(100vh - 7rem);
+  background: #111;
+  border: 1px solid rgba(23, 201, 232, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  overflow-y: auto;
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.25s, opacity 0.25s, visibility 0.25s;
+}
+#a11y-panel.a11y-open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Scrollbar styling */
+#a11y-panel::-webkit-scrollbar { width: 6px; }
+#a11y-panel::-webkit-scrollbar-track { background: transparent; }
+#a11y-panel::-webkit-scrollbar-thumb { background: rgba(23, 201, 232, 0.3); border-radius: 3px; }
+
+/* ---------- Panel Header ---------- */
+.a11y-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.a11y-header h2 {
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #17C9E8;
+  margin: 0;
+}
+.a11y-close {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.a11y-close:hover,
+.a11y-close:focus-visible {
+  color: #fff;
+}
+
+/* Divider */
+.a11y-divider {
+  height: 2px;
+  background: linear-gradient(90deg, #17C9E8, #FAFA05);
+  border: none;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Option Buttons ---------- */
+.a11y-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.a11y-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #eee;
+  font-family: 'Amiko', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  text-align: left;
+}
+.a11y-option:hover {
+  background: rgba(23, 201, 232, 0.1);
+  border-color: rgba(23, 201, 232, 0.3);
+  transform: translateX(2px);
+}
+.a11y-option:focus-visible {
+  outline: 2px solid #17C9E8;
+  outline-offset: 2px;
+}
+.a11y-option.a11y-active {
+  background: rgba(23, 201, 232, 0.15);
+  border-color: #17C9E8;
+  color: #fff;
+}
+
+/* Icon area */
+.a11y-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(23, 201, 232, 0.1);
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Antonio', sans-serif;
+  color: #17C9E8;
+}
+.a11y-active .a11y-icon {
+  background: rgba(23, 201, 232, 0.25);
+}
+
+/* ---------- Reset Button ---------- */
+.a11y-reset {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #aaa;
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.a11y-reset:hover,
+.a11y-reset:focus-visible {
+  color: #fff;
+  border-color: rgba(250, 250, 5, 0.4);
+  background: rgba(250, 250, 5, 0.05);
+}
+
+/* ---------- Body-level accessibility classes ---------- */
+
+/* Dark Mode */
+body.a11y-dark-mode {
+  background: #0a0a0a !important;
+  color: #e0e0e0 !important;
+}
+body.a11y-dark-mode section,
+body.a11y-dark-mode .container,
+body.a11y-dark-mode .feature-card,
+body.a11y-dark-mode .tip-card,
+body.a11y-dark-mode .form-light,
+body.a11y-dark-mode .faq-answer {
+  background-color: #111 !important;
+  color: #e0e0e0 !important;
+}
+body.a11y-dark-mode footer {
+  background: #0a0a0a !important;
+}
+
+/* High Contrast */
+body.a11y-high-contrast {
+  filter: contrast(1.4) !important;
+}
+
+/* Highlight Links */
+body.a11y-highlight-links a {
+  outline: 2px solid #FAFA05 !important;
+  outline-offset: 2px;
+  background-color: rgba(250, 250, 5, 0.1) !important;
+}
+body.a11y-highlight-links a:focus-visible {
+  outline: 3px solid #FAFA05 !important;
+}
+
+/* Reduce Motion */
+body.a11y-reduce-motion,
+body.a11y-reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Click Speed — larger click targets */
+body.a11y-click-speed a,
+body.a11y-click-speed button,
+body.a11y-click-speed input,
+body.a11y-click-speed select,
+body.a11y-click-speed textarea,
+body.a11y-click-speed [tabindex] {
+  min-height: 44px !important;
+  min-width: 44px !important;
+}
+body.a11y-click-speed .a11y-option,
+body.a11y-click-speed .a11y-reset,
+body.a11y-click-speed #a11y-trigger {
+  min-height: unset !important;
+  min-width: unset !important;
+}
+
+/* ---------- Mobile responsive ---------- */
+@media (max-width: 480px) {
+  #a11y-panel {
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+    bottom: 4.5rem;
+    max-height: calc(100vh - 6rem);
+  }
+  #a11y-trigger {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 46px;
+    height: 46px;
+  }
+  #a11y-trigger svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ---------- Reduced motion for widget itself ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #a11y-panel,
+  #a11y-overlay,
+  #a11y-trigger,
+  .a11y-option,
+  .a11y-reset,
+  .a11y-close {
+    transition-duration: 0.01ms !important;
+  }
+}
